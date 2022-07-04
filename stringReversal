@@ -1,0 +1,23 @@
+#include <iostream>
+#include <string>
+#include <algorithm>
+
+using namespace std;
+
+string reverseString(const string);
+
+int main()
+{
+	string text;
+	reverseString(text);
+}
+
+string reverseString(const string)
+{
+	string str;
+	cout << "Enter text to be reversed.\n";
+	getline(cin, str);
+	reverse(str.begin(), str.end());
+	cout << str;
+	return str;
+}

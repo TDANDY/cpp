@@ -1,0 +1,91 @@
+#include <iostream>
+#include <fstream>
+#include <iomanip>
+#include <string>
+
+
+using namespace std;
+
+int main()
+{
+    const int examSize = 20;                      
+    int counter, student = 0;
+    string correctFile, studentFile;
+    char correctAnswers[examSize], studentAnswers[examSize];
+    
+
+    cout << "Enter the name of the Correct Answers file:\n";
+    cin >> correctFile;
+
+        
+    ifstream inputCorrect(correctFile);    
+    if (!inputCorrect)
+    {
+        cout << "Error opening correct answers file" << endl;
+        return 1;                                
+    }
+    for (int i = 0; i < examSize; i++)
+    {
+        inputCorrect >> correctAnswers[i];
+             
+    }
+    inputCorrect.close();
+
+    cout << "\nEnter the name of the Students Answers file:\n";
+    cin >> studentFile;
+
+    ifstream inputStudent(studentFile);   
+    if (!inputStudent)
+    {
+        cout << "Error opening student answers file" << endl;
+        return 1;                                
+    }
+        
+   
+    while (inputStudent)  
+    {
+        student++;    
+
+       
+        for (int i = 0; i < examSize; i++)
+        {
+            inputStudent >> studentAnswers[i];
+            if (!inputStudent)
+                return 0;          
+           
+        }
+                
+        cout << "\nReport for Student " << student << ": " << endl;
+        cout << "The student got the following answers wrong: " << endl;
+        counter = 0;
+        for (int i = 0; i < examSize; i++)
+        {
+            if (correctAnswers[i] != studentAnswers[i])
+            {
+                counter++;
+                cout << "Question number: " << setw(2) << i + 1
+                    << "   Student answer: " << studentAnswers[i]
+                    << "   Correct answer: " << correctAnswers[i] << endl;
+            }
+        }
+        cout << endl;
+
+        double percent = 100.0 * (examSize - counter) / examSize;
+        cout << "Number of questions wrong: " << counter << endl;
+        cout << "Percentage correct:        " << percent << "%" << endl;
+      
+
+        if (percent >= 70.0)
+        {
+            cout << "\nThis student passed the exam" << endl;
+        }
+
+        else
+        {
+            cout << "\nThis student failed the exam\n" << endl;
+
+        }
+    }                                                               
+
+    inputStudent.close();
+}

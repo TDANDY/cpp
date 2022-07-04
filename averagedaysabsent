@@ -1,0 +1,57 @@
+#include <iostream>
+#include <iomanip>
+
+using namespace std;
+
+int numEmployees();
+int numAbsents(int);
+double averageab(int, int);
+
+int main()
+{
+	int employees = numEmployees();
+	int absents = numAbsents(employees);
+	cout << "The average  number of days absent is " << showpoint << fixed << setprecision(2) << averageab(employees, absents) << endl;
+}
+
+int numEmployees()
+{
+	int num;
+	do
+	{
+		cout << "Please, enter the number of employees: ";
+		cin >> num;
+		if (num < 1)cout << "ERROR! PLEASE RE-ENTER:\n";
+	} while (num < 1);
+	return num;
+}
+
+int numAbsents(int employees)
+{
+	int total = 0;
+	for (int i = 1; i <= employees; i++)
+	{
+		int miss;
+		do
+		{
+			cout << "Enter the number of missed days during the past year for Employee " << i << ": ";
+			cin >> miss;
+
+			if (miss < 0)
+			{
+				cout << "ERROR. PLEASE RE-ENTER!\n";
+			}
+			else
+			{
+				total += miss;
+			}
+		}while (miss < 0);
+	}
+	return total;
+}
+
+double averageab(int employees, int absents)
+{
+	double aveg = (double)absents / employees;
+	return aveg;
+}
